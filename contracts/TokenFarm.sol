@@ -52,6 +52,7 @@ contract TokenFarm is Ownable {
                     allowedTokens[allowedTokensIndex]
                 );
         }
+        return totalValue;
     }
 
     function getUserSingleTokenValue(address _user, address _token)
