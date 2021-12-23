@@ -33,7 +33,7 @@ export const Main = () => {
         {
             image: eth,
             address: wethTokenAddress,
-            name: "ETH"
+            name: "WETH"
         },
         {
             image: fau,
