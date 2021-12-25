@@ -1,5 +1,6 @@
-import { useEthers } from "@usedapp/core";
-import { Button, makeStyles } from "@material-ui/core";
+import { useEthers } from "@usedapp/core"
+import { Button, makeStyles } from "@material-ui/core"
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -7,13 +8,13 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "flex-end",
         gap: theme.spacing(1)
-    }
+    },
 }))
 
 export const Header = () => {
     const classes = useStyles()
-    const { account, activateBrowserWallet, deactivate } = useEthers()
 
+    const { account, activateBrowserWallet, deactivate } = useEthers()
     const isConnected = account !== undefined
 
     return (

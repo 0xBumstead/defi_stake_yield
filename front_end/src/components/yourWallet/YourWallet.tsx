@@ -18,7 +18,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     }
     return (
         <Box>
-            <h1>Your Wallet !</h1>
+            <h1>Your Wallet:</h1>
             <Box>
                 <TabContext value={selectedTokenIndex.toString()}>
                     <TabList onChange={handleChange} aria-label="stake form tabs">

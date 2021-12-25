@@ -17,6 +17,7 @@ export type Token = {
 }
 
 export const Main = () => {
+
     const { chainId, error } = useEthers()
     const networkName = chainId ? helperConfig[chainId] : "development"
     let stringChainId = String(chainId)
@@ -42,6 +43,7 @@ export const Main = () => {
         }
     ]
 
-    return <YourWallet supportedTokens={supportedTokens} />
-
+    return (
+        <YourWallet supportedTokens={supportedTokens} />
+    )
 }
