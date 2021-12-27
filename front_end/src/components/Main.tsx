@@ -9,6 +9,8 @@ import bum from "../bum.png"
 import eth from "../eth.png"
 import fau from "../dai.png"
 import { YourWallet } from "./yourWallet"
+import { makeStyles } from "@material-ui/core"
+import { textAlign } from "@mui/system"
 
 export type Token = {
     image: string
@@ -16,8 +18,16 @@ export type Token = {
     name: string
 }
 
-export const Main = () => {
+const useStyles = makeStyles((theme) => ({
+    titles: {
+        color: theme.palette.common.white,
+        textAlign: "center",
+        padding: theme.spacing(4)
+    }
+}))
 
+export const Main = () => {
+    const classes = useStyles()
     const { chainId, error } = useEthers()
     const networkName = chainId ? helperConfig[chainId] : "development"
     let stringChainId = String(chainId)
@@ -43,7 +53,9 @@ export const Main = () => {
         }
     ]
 
-    return (
+    return (<>
+        <h2 className={classes.titles}>BUM Token App</h2>
         <YourWallet supportedTokens={supportedTokens} />
+    </>
     )
 }

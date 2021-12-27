@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { formatUnits } from "@ethersproject/units"
-import { Button, Input } from "@material-ui/core"
-import { useEthers, useTokenBalance } from "@usedapp/core"
+import { Button, Input, CircularProgress } from "@material-ui/core"
+import { useEthers, useTokenBalance, useNotifications } from "@usedapp/core"
 import { Token } from "../Main";
 import { useStakeTokens } from "../../hooks"
 import { utils } from "ethers"
@@ -15,6 +15,7 @@ export const StakeForm = ({ token }: StakeFormProps) => {
     const { account } = useEthers()
     const tokenBalance = useTokenBalance(tokenAddress, account)
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
+    const { notifications } = useNotifications()
 
     const [amount, setAmount] = useState<number | string | Array<number | string>>(0)
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,17 +23,35 @@ export const StakeForm = ({ token }: StakeFormProps) => {
         setAmount(newAmount)
     }
 
-    const { approve, state } = useStakeTokens(tokenAddress)
+    const { approveAndStake, state: approveAndStakeErc20State } = useStakeTokens(tokenAddress)
     const handleStakeSubmit = () => {
         const amountAsWei = utils.parseEther(amount.toString())
-        return approve(amountAsWei.toString())
+        return approveAndStake(amountAsWei.toString())
     }
+
+    const isMining = approveAndStakeErc20State.status === "Mining"
+
+    useEffect(() => {
+        if (notifications.filter(
+            (notification) =>
+                notification.type === "transactionSucceed" &&
+                notification.transactionName === "Approve ERC20 transfer").length > 0) {
+            console.log("Approved!")
+        }
+
+        if (notifications.filter(
+            (notification) =>
+                notification.type === "transactionSucceed" &&
+                notification.transactionName === "Stake Tokens").length > 0) {
+            console.log("Tokens Staked!")
+        }
+    }, [notifications])
 
     return (
         <>
             <Input onChange={handleInputChange} />
-            <Button onClick={handleStakeSubmit} color="primary" size="large">
-                Stake
+            <Button onClick={handleStakeSubmit} color="primary" size="large" disabled={isMining}>
+                {isMining ? <CircularProgress size={26} /> : "Stake"}
             </Button>
         </>
     )
