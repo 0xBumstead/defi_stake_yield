@@ -4,6 +4,7 @@ import { TabContext, TabList, TabPanel } from "@material-ui/lab"
 import React, { useState } from "react"
 import { Tab } from "@material-ui/core"
 import { StakedBalance } from "./StakedBalance"
+import { UnstakeForm } from "./UnstakeForm"
 
 interface TokenFarmContractProps {
     supportedTokens: Array<Token>
@@ -49,6 +50,7 @@ export const TokenFarmContract = ({ supportedTokens }: TokenFarmContractProps) =
                             <TabPanel value={index.toString()} key={index}>
                                 <div className={classes.tabContent}>
                                     <StakedBalance token={supportedTokens[selectedTokenIndex]} />
+                                    <UnstakeForm token={supportedTokens[selectedTokenIndex]} />
                                 </div>
                             </TabPanel>
                         )
@@ -56,7 +58,5 @@ export const TokenFarmContract = ({ supportedTokens }: TokenFarmContractProps) =
                 </TabContext>
             </Box>
         </Box>
-
-
     )
 }
