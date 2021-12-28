@@ -1,7 +1,7 @@
-import { useEthers, useTokenBalance } from "@usedapp/core";
-import { formatUnits } from "@ethersproject/units";
-import { Token } from "../Main";
-import { BalanceMsg } from "../BalanceMsg";
+import { useEthers, useTokenBalance } from "@usedapp/core"
+import { formatUnits } from "@ethersproject/units"
+import { Token } from "../Main"
+import { BalanceMsg } from "../BalanceMsg"
 
 
 export interface WalletBalanceProps {

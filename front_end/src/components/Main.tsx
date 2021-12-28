@@ -9,6 +9,7 @@ import bum from "../bum.png"
 import eth from "../eth.png"
 import fau from "../dai.png"
 import { YourWallet } from "./yourWallet"
+import { TokenFarmContract } from "./tokenFarmContract"
 import { makeStyles } from "@material-ui/core"
 import { textAlign } from "@mui/system"
 
@@ -56,6 +57,7 @@ export const Main = () => {
     return (<>
         <h2 className={classes.titles}>BUM Token App</h2>
         <YourWallet supportedTokens={supportedTokens} />
+        <TokenFarmContract supportedTokens={supportedTokens} />
     </>
     )
 }
