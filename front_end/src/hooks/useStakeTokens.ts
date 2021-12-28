@@ -9,7 +9,9 @@ import networkMapping from "../chain-info/deployments/map.json"
 export const useStakeTokens = (tokenAddress: string) => {
     const { chainId } = useEthers()
     const { abi } = TokenFarm
-    const tokenFarmAddress = chainId ? networkMapping[String(chainId)]["TokenFarm"][0] : constants.AddressZero
+    const tokenFarmAddress = chainId
+        ? networkMapping[String(chainId)]["TokenFarm"][0]
+        : constants.AddressZero
     const tokenFarmInterface = new utils.Interface(abi)
     const tokenFarmContract = new Contract(tokenFarmAddress, tokenFarmInterface)
 
@@ -24,6 +26,7 @@ export const useStakeTokens = (tokenAddress: string) => {
     const approveAndStake = (amount: string) => {
         setAmountToStake(amount)
         return approveErc20Send(tokenFarmAddress, amount)
+        return stakeSend(amountToStake, tokenAddress)
     }
     // stake
     const { send: stakeSend, state: stakeState } =
