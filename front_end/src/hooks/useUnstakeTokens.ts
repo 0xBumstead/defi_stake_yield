@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react"
 import { useEthers, useContractFunction } from "@usedapp/core"
-import { constants, utils } from "ethers"
 import TokenFarm from "../chain-info/contracts/TokenFarm.json"
 import { Contract } from "@ethersproject/contracts"
 import networkMapping from "../chain-info/deployments/map.json"
+import { utils, constants } from "ethers"
 
-export const useUnstakeTokens = (tokenAddress: string) => {
+export const useUnstakeTokens = () => {
     const { chainId } = useEthers()
     const { abi } = TokenFarm
     const tokenFarmAddress = chainId
@@ -14,14 +13,7 @@ export const useUnstakeTokens = (tokenAddress: string) => {
     const tokenFarmInterface = new utils.Interface(abi)
     const tokenFarmContract = new Contract(tokenFarmAddress, tokenFarmInterface)
 
-    const unstake = (amount: string) => {
-        return unstakeSend(amount, tokenAddress)
-    }
-
-    const { send: unstakeSend, state: unstakeState } =
-        useContractFunction(tokenFarmContract, "unstakeTokens", {
-            transactionName: "Unstake Tokens",
-        })
-
-    return { unstake, unstakeState }
-}
+    return useContractFunction(tokenFarmContract, "unstakeTokens", {
+        transactionName: "Unstake Tokens",
+    })
+}   

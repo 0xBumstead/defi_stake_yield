@@ -35,7 +35,7 @@ export const TokenFarmContract = ({ supportedTokens }: TokenFarmContractProps) =
 
     return (
         <Box>
-            <h1 className={classes.header}>The Token Farm :</h1>
+            <h1 className={classes.header}>The Token Farm:</h1>
             <Box className={classes.box}>
                 <TabContext value={selectedTokenIndex.toString()}>
                     <TabList onChange={handleChange} aria-label="stake form tabs">
